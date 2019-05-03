@@ -5,12 +5,13 @@ sudo apt-get update
 sudo apt-get upgrade
 
 # Install Python and Sensor tools.
-sudo apt-get install python3 python3-setuptools python3-pip python-imaging python-smbus i2c-tools libjpeg-dev zlib1g-dev
-sudo python3 -m pip3 install virtualenv --upgrade pip setuptools wheel
+sudo apt-get install python3 python3-setuptools python3-pip python-imaging python-smbus i2c-tools libjpeg zlib1g
+pip3 install virtualenv --upgrade pip setuptools wheel
 
 # Download sensor repos.
 git clone git@github.com:kyletaylored/piodome.git
 cd piodome
+
 # Set up Virtual Environment
 python3 -m venv env
 source env/bin/activate
