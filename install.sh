@@ -5,8 +5,8 @@ sudo apt-get update
 sudo apt-get upgrade
 
 # Install Python and Sensor tools.
-sudo apt-get install python3 python3-setuptools python3-pip python-imaging python-smbus i2c-tools libjpeg zlib1g
-pip3 install virtualenv --upgrade pip setuptools wheel
+sudo apt-get install python3 python3-setuptools python3-pip python3-venv python-imaging python-smbus i2c-tools libjpeg zlib1g
+pip3 install --upgrade pip setuptools wheel virtualenv
 
 # Download sensor repos.
 git clone git@github.com:kyletaylored/piodome.git
@@ -38,8 +38,8 @@ function install_node {
 }
 
 OS = $(uname -m)
-echo "$OS detected..."
-case $OS in
+echo "${OS} detected..."
+case ${OS} in
 	armv6l)
 		install_node "https://nodejs.org/dist/v10.15.3/node-v10.15.3-linux-armv6l.tar.xz"
 	    ;;
