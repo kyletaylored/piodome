@@ -31,6 +31,9 @@ function install_node {
 	tar -xf -C $dl_dir $dl_file --strip 1
 	# Copy all files to /usr/local
 	sudo cp -r $dl_dir/* /usr/local/
+	# Cleanup
+	rm -rf $dl_dir
+	rm -f $dl_file
 }
 
 OS = $(uname -m)
