@@ -7,7 +7,7 @@ sudo apt-get upgrade -y
 # Install Python and Sensor tools.
 sudo apt-get install python3 python3-setuptools i2c-tools libjpeg-dev zlib1g-dev -y
 sudo apt-get install python3-pip python3-venv python-imaging python-smbus -y
-pip3 install --upgrade pip setuptools wheel virtualenv
+python3 -m pip install --upgrade pip setuptools wheel virtualenv
 
 # Download sensor repos.
 git clone git@github.com:kyletaylored/piodome.git
@@ -18,7 +18,7 @@ python3 -m venv env
 source env/bin/activate
 
 # Install dependencies
-pip3 install -r requirements.txt
+python3 -m pip install -r requirements.txt
 
 # Install Node based on Arm version.
 function install_node {
@@ -38,7 +38,7 @@ function install_node {
 	rm -f $dl_file
 }
 
-OS = $(uname -m)
+OS = `echo $(uname -m)`
 echo "${OS} detected..."
 case ${OS} in
 	armv6l)
