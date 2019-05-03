@@ -23,8 +23,8 @@ python3 -m pip install -r requirements.txt
 # Install Node based on Arm version.
 function install_node {
 	# Create local vars.
-	local dl_file = "node.tar.xz"
-	local dl_dir = "node_store"
+	local dl_file="node.tar.xz"
+	local dl_dir="node_store"
 
 	# Download file to predermined file name.
 	wget -O $dl_file $1
@@ -38,7 +38,7 @@ function install_node {
 	rm -f $dl_file
 }
 
-OS = `echo $(uname -m)`
+OS=`echo $(uname -m)`
 echo "${OS} detected..."
 case ${OS} in
 	armv6l)
