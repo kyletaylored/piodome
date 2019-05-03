@@ -13,12 +13,12 @@ python3 -m pip install --upgrade pip setuptools wheel virtualenv
 git clone git@github.com:kyletaylored/piodome.git
 cd piodome
 
-# Set up Virtual Environment
+# Set up Virtual Environment / activate
 python3 -m venv env
 source env/bin/activate
 
 # Install dependencies
-python3 -m pip install -r requirements.txt
+pip3 install -r requirements.txt
 
 # Install Node based on Arm version.
 function install_node {
