@@ -2,10 +2,11 @@
 
 # Update system
 sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get upgrade -y
 
 # Install Python and Sensor tools.
-sudo apt-get install python3 python3-setuptools python3-pip python3-venv python-imaging python-smbus i2c-tools libjpeg zlib1g
+sudo apt-get install python3 python3-setuptools i2c-tools libjpeg-dev zlib1g-dev -y
+sudo apt-get install python3-pip python3-venv python-imaging python-smbus -y
 pip3 install --upgrade pip setuptools wheel virtualenv
 
 # Download sensor repos.
