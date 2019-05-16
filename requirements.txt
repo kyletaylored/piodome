@@ -7,3 +7,4 @@ Pillow==6.0.0
 pytz==2019.1
 requests==2.12.4
 virtualenv==15.1.0
+circuitpython-build-tools==1.2.3

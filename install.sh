@@ -6,8 +6,32 @@ sudo apt-get upgrade -y
 
 # Install Python and Sensor tools.
 sudo apt-get install python3 python3-setuptools i2c-tools libjpeg-dev zlib1g-dev -y
-sudo apt-get install python3-pip python3-venv python-imaging python-smbus -y
-python3 -m pip install --upgrade pip setuptools wheel virtualenv
+sudo apt-get install python3-pip python3-venv python3-pil python3-smbus -y
+
+# Enable I2C on Raspberry Pi
+# Turn on I2C in boot config.
+sudo sed -in "s/^#dtparam=i2c_arm*/dtparam=i2c_arm=on/1" /boot/config.txt
+# Add I2C to enabled modules.
+cat > i2c.txt <<EOF
+
+# Enable i2c on boot
+i2c-dev
+EOF
+cat i2c.txt | sudo tee -a /etc/modules
+
+# Enable SSH (create empty SSH file in boot)
+sudo touch /boot/ssh
+
+# Set Python3 as default
+cat <<BASH >> ~/.bashrc
+
+# Set Python3 as default
+alias python='/usr/bin/python3'
+alias pip=pip3
+BASH
+
+# Update Python tools
+pip install --upgrade pip setuptools wheel virtualenv
 
 # Download sensor repos.
 git clone git@github.com:kyletaylored/piodome.git
