@@ -9,18 +9,11 @@ sudo apt-get install python3 python3-setuptools i2c-tools libjpeg-dev zlib1g-dev
 sudo apt-get install python3-pip python3-venv python3-pil python3-smbus -y
 
 # Enable I2C on Raspberry Pi
-# Turn on I2C in boot config.
-sudo sed -in "s/^#dtparam=i2c_arm*/dtparam=i2c_arm=on/1" /boot/config.txt
-# Add I2C to enabled modules.
-cat > i2c.txt <<EOF
-
-# Enable i2c on boot
-i2c-dev
-EOF
-cat i2c.txt | sudo tee -a /etc/modules
-
+# sudo sed -in "s/^#dtparam=i2c_arm=on/dtparam=i2c_arm=on/1" /boot/config.txt
 # Enable SSH (create empty SSH file in boot)
-sudo touch /boot/ssh
+# sudo touch /boot/ssh
+# Update hostname
+# sudo hostname piodome
 
 # Set Python3 as default
 cat <<BASH >> ~/.bashrc
@@ -38,8 +31,8 @@ git clone git@github.com:kyletaylored/piodome.git
 cd piodome
 
 # Set up Virtual Environment / activate
-python3 -m venv env
-source env/bin/activate
+# python3 -m venv env
+# source env/bin/activate
 
 # Install dependencies
 pip3 install -r requirements.txt
