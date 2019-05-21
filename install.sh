@@ -17,15 +17,26 @@ sudo apt-get update
 sudo apt-get upgrade -y
 
 # Install Python and Sensor tools.
-sudo apt-get install python3 python3-setuptools i2c-tools libjpeg-dev zlib1g-dev -y
-sudo apt-get install python3-pip python3-venv python3-pil python3-smbus -y
+sudo apt-get install git python3 python3-setuptools i2c-tools libjpeg-dev zlib1g-dev -qq
+sudo apt-get install python3-pip python3-venv python3-pil python3-smbus python3-w1thermsensor -qq
 
-# Enable I2C on Raspberry Pi
-# sudo sed -in "s/^#dtparam=i2c_arm=on/dtparam=i2c_arm=on/1" /boot/config.txt
+# Enable I2C/1-Wire on Raspberry Pi
+sudo cat <<BASH >> /boot/config.txt
+
+# I2C / 1-Wire
+dtparam=i2c_arm=on
+dtoverlay=w1-gpio-pullup,gpiopin=27
+BASH
+
 # Enable SSH (create empty SSH file in boot)
 # sudo touch /boot/ssh
 # Update hostname
 # sudo hostname piodome
+
+# Set up GPIO pullup pin for DS18B20
+# Removes need for resistor and external power.
+sudo modprobe w1-gpio
+sudo dtoverlay w1-gpio gpiopin=27 pullup=1
 
 # Set Python3 as default
 cat <<BASH >> ~/.bashrc
@@ -34,6 +45,7 @@ cat <<BASH >> ~/.bashrc
 alias python='/usr/bin/python3'
 alias pip=pip3
 BASH
+source ~/.bashrc
 
 # Update Python tools
 pip install --upgrade pip setuptools wheel virtualenv
@@ -45,6 +57,8 @@ cd piodome
 # Set up Virtual Environment / activate
 # python3 -m venv env
 # source env/bin/activate
+
+
 
 # Install dependencies
 pip3 install -r requirements.txt
