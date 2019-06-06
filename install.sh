@@ -17,8 +17,8 @@ sudo apt-get update
 sudo apt-get upgrade -y
 
 # Install Python and Sensor tools.
-sudo apt-get install git python3 python3-setuptools i2c-tools libjpeg-dev zlib1g-dev -qq
-sudo apt-get install python3-pip python3-venv python3-pil python3-smbus python3-w1thermsensor -qq
+sudo apt-get install git jq python3 python3-setuptools i2c-tools libjpeg-dev zlib1g-dev -qq
+sudo apt-get install python3-pip python3-venv python3-pil python3-w1thermsensor -qq
 
 # Enable I2C/1-Wire on Raspberry Pi
 sudo cat <<BASH >> /boot/config.txt
@@ -34,8 +34,9 @@ BASH
 # sudo hostname piodome
 
 # Set up GPIO pullup pin for DS18B20
-# Removes need for resistor and external power.
+# Removes need for dedicated external power.
 sudo modprobe w1-gpio
+sudo modprobe w1-therm
 sudo dtoverlay w1-gpio gpiopin=27 pullup=1
 
 # Set Python3 as default
@@ -58,10 +59,8 @@ cd piodome
 # python3 -m venv env
 # source env/bin/activate
 
-
-
 # Install dependencies
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 
 # Install Node based on Arm version.
 function install_node {
