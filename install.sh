@@ -16,16 +16,26 @@ echo_yellow "Starting Piodome installation..."
 sudo apt-get update
 sudo apt-get upgrade -y
 
+echo_yellow "Removing bloatware..."
+sudo curl -fsSL https://raw.githubusercontent.com/raspberrycoulis/remove-bloat/master/remove-bloat.sh | bash
+
 # Install Python and Sensor tools.
-sudo apt-get install git jq python3 python3-setuptools i2c-tools libjpeg-dev zlib1g-dev -qq
+echo_yellow "Installing essentials..."
+sudo apt-get install git jq python3 python3-setuptools i2c-tools -qq
 sudo apt-get install python3-pip python3-venv python3-pil python3-w1thermsensor -qq
+sudo apt-get install libfreetype6-dev libjpeg-dev build-essential -qq
+
+# Add Pi user to I2C group.
+sudo usermod -a -G i2c pi
 
 # Enable I2C/1-Wire on Raspberry Pi
+echo_yellow "Enabling I2C / 1-Wire interfaces..."
 sudo cat <<BASH >> /boot/config.txt
 
 # I2C / 1-Wire
-dtparam=i2c_arm=on
 dtoverlay=w1-gpio-pullup,gpiopin=27
+# Improve performance by increasing I2C baudrate to 400KHz
+dtparam=i2c_arm=on,i2c_baudrate=400000
 BASH
 
 # Enable SSH (create empty SSH file in boot)
