@@ -41,7 +41,7 @@ image = Image.new('1', (width, height))
 draw = ImageDraw.Draw(image)
 
 # Draw a black filled box to clear the image.
-draw.rectangle((0,0,width,height), outline=0, fill=0)
+draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
 # Draw some shapes.
 # First define some constants to allow easy resizing of shapes.
@@ -84,24 +84,22 @@ pin = 4
 # to 15 times to get a sensor reading (waiting 2 seconds between each retry).
 
 
-
 while True:
-	humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
-	if humidity is not None and temperature is not None:
-		sleep(5)
-		temperature = round(1.8*temperature+32, 2)
-		str_temp = ' {0:0.2f} *F '.format(temperature)	
-		str_hum  = ' {0:0.2f} %'.format(humidity)
-		print('Temp={0:0.1f}*F  Humidity={1:0.1f}%'.format(temperature, humidity))	
-		draw.rectangle((0,0,width,height), outline=0, fill=0)
-		#disp.clear()
-		#disp.display()
-		draw.text((3, top),    ' Temperature / Humidity',  font=font, fill=255)
-		draw.text((x, top+16), str_temp, font=font18, fill=255)
-		draw.text((x, top+36), str_hum, font=font18, fill=255)
-		disp.image(image)
-		disp.display()
-	else:
-		print('Failed to get reading. Try again!')
-		sleep(10)
-	
+    humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+    if humidity is not None and temperature is not None:
+        sleep(5)
+        temperature = round(1.8*temperature+32, 2)
+        str_temp = ' {0:0.2f} *F '.format(temperature)
+        str_hum = ' {0:0.2f} %'.format(humidity)
+        print('Temp={0:0.1f}*F  Humidity={1:0.1f}%'.format(temperature, humidity))
+        draw.rectangle((0, 0, width, height), outline=0, fill=0)
+        # disp.clear()
+        # disp.display()
+        draw.text((3, top),    ' Temperature / Humidity',  font=font, fill=255)
+        draw.text((x, top+16), str_temp, font=font18, fill=255)
+        draw.text((x, top+36), str_hum, font=font18, fill=255)
+        disp.image(image)
+        disp.display()
+    else:
+        print('Failed to get reading. Try again!')
+        sleep(10)
